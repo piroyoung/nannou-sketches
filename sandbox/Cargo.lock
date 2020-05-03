@@ -1031,8 +1031,7 @@ dependencies = [
 [[package]]
 name = "nannou"
 version = "0.14.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "891b3921fcb3bfa8258de0c5a7cbeb0dc0d29522fc5f8ba463484dd188a29a73"
+source = "git+https://github.com/nannou-org/nannou#229b7ce6ec0bad00592e1cff0825c15367c9f390"
 dependencies = [
  "cgmath",
  "conrod_core",

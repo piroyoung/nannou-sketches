@@ -1,3 +1,4 @@
+use nannou::color::named;
 use nannou::prelude::*;
 use nannou::rand::random_range;
 
@@ -32,12 +33,12 @@ impl Model {
     }
 
     fn get_point(w: f32, h: f32) -> Point2 {
-        pt2(random_range(-w / 2.0, w / 2.0), random_range(-h / 2.0, h / 2.0))
+        pt2(random_range(-w, w), random_range(-h, h))
     }
 
     fn get_points(n: usize, w: f32, h: f32) -> Vec<Point2> {
         let mut vec = Vec::new();
-        for i in 0..n {
+        for _i in 0..n {
             vec.push(Model::get_point(w, h));
         }
         vec
@@ -66,7 +67,7 @@ impl Model {
 }
 
 fn model(_app: &App) -> Model {
-    Model::new(20, 200.0, 200.0, 60)
+    Model::new(20, _app.window_rect().w(), _app.window_rect().h(), 100)
 }
 
 fn update(_app: &App, _model: &mut Model, _update: Update) {
@@ -75,9 +76,16 @@ fn update(_app: &App, _model: &mut Model, _update: Update) {
 
 fn view(_app: &App, _model: &Model, frame: Frame) {
     let draw = _app.draw();
-    draw.background().color(PURPLE);
-    let points = _model.get_current().iter().map(|point| {
-        (point, BLACK)
-    });
+    draw.background().color(named::BLACK);
+    let points = _model.get_current();
+
+    for i in 0.._model.n - 1 {
+        draw.line()
+            .start(points[i])
+            .end(points[i + 1])
+            .weight(4.0)
+            .color(STEELBLUE);
+    }
+
     draw.to_frame(_app, &frame);
 }
